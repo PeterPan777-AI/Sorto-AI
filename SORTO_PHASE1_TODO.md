@@ -52,3 +52,13 @@
 - [x] Remove all "Ecconiq" references
 - [x] Add real app screenshots to landing page
 - [x] Expand FAQ section with more questions (now 15 FAQs total)
+
+
+## Core Functionality Implementation
+- [x] Document scanning - browse and scan local folders
+- [x] File processing - extract text from Word/Excel/PowerPoint/PDF
+- [x] AI tagging service - analyze content and auto-tag documents
+- [x] Duplicate detection - find exact and similar files
+- [ ] Search functionality - full-text search across documents
+- [ ] Wire up UI to backend services
+- [ ] Test with real Turtle House documents

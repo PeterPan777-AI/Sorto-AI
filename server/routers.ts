@@ -8,6 +8,7 @@ import { promisify } from "util";
 import * as db from "./db";
 import { analyzeDocument, calculateSimilarity, detectVersionPattern } from "./ai_tagger";
 import { licenseRouter } from "./license";
+import { scanRouter } from "./routers/scan";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
@@ -18,6 +19,7 @@ const execAsync = promisify(exec);
 
 export const appRouter = router({
   system: systemRouter,
+  scan: scanRouter,
   
   auth: router({
     me: publicProcedure.query(opts => {
