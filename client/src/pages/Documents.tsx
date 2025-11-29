@@ -24,6 +24,7 @@ export default function Documents() {
   const [searchQuery, setSearchQuery] = useState("");
   const [folderPath, setFolderPath] = useState("");
   const [isScanning, setIsScanning] = useState(false);
+  const isElectron = typeof window !== 'undefined' && window.electron?.isElectron;
 
   const { data: documents, isLoading, refetch } = trpc.documents.list.useQuery(
     { limit: 100, offset: 0 },
@@ -42,6 +43,22 @@ export default function Documents() {
       setIsScanning(false);
     }
   });
+
+  const handleBrowseFolder = async () => {
+    if (!isElectron || !window.electron) {
+      toast.error("File browser is only available in the desktop app");
+      return;
+    }
+
+    try {
+      const selectedPath = await window.electron.openFolderDialog();
+      if (selectedPath) {
+        setFolderPath(selectedPath);
+      }
+    } catch (error) {
+      toast.error("Failed to open folder dialog");
+    }
+  };
 
   const handleScan = () => {
     if (!folderPath.trim()) {
@@ -106,6 +123,15 @@ export default function Documents() {
                 disabled={isScanning}
                 className="flex-1"
               />
+              {isElectron && (
+                <Button
+                  variant="outline"
+                  onClick={handleBrowseFolder}
+                  disabled={isScanning}
+                >
+                  Browse
+                </Button>
+              )}
               <Button onClick={handleScan} disabled={isScanning}>
                 {isScanning ? (
                   <>

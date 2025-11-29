@@ -62,3 +62,12 @@
 - [x] Search functionality - full-text search across documents
 - [x] Wire up UI to backend services
 - [ ] Test with real Turtle House documents
+
+## Desktop App Packaging (Electron)
+- [x] Install Electron and electron-builder dependencies
+- [x] Create Electron main process file
+- [x] Add native file browser dialog
+- [x] Set up IPC communication between Electron and web app
+- [x] Configure electron-builder for Windows
+- [ ] Create Windows installer (.exe)
+- [ ] Test desktop app functionality
