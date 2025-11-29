@@ -127,8 +127,25 @@
     "files": [
       "electron/**/*",
       "dist/**/*",
+      "drizzle/**/*",
+      "server/**/*",
+      "shared/**/*",
+      "storage/**/*",
       "node_modules/**/*",
-      "package.json"
+      "package.json",
+      ".env"
+    ],
+    "extraResources": [
+      {
+        "from": "dist",
+        "to": "app/dist",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "node_modules",
+        "to": "app/node_modules",
+        "filter": ["**/*"]
+      }
     ],
     "win": {
       "target": [

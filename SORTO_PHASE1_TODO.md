@@ -71,3 +71,10 @@
 - [x] Configure electron-builder for Windows
 - [ ] Create Windows installer (.exe)
 - [ ] Test desktop app functionality
+
+## Embedded Server Integration
+- [x] Create server launcher script for Electron
+- [x] Bundle Express server with electron-builder
+- [x] Add server startup/shutdown in Electron main process
+- [x] Configure port management and error handling
+- [ ] Test embedded server in desktop app

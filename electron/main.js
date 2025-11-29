@@ -1,8 +1,11 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs').promises;
+const { spawn } = require('child_process');
 
 let mainWindow;
+let serverProcess = null;
+const SERVER_PORT = 3000;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -35,7 +38,10 @@ function createWindow() {
   });
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
+  // Start the Express server
+  await startServer();
+  
   createWindow();
 
   app.on('activate', () => {
@@ -47,9 +53,83 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
+    stopServer();
     app.quit();
   }
 });
+
+app.on('before-quit', () => {
+  stopServer();
+});
+
+/**
+ * Start the Express server
+ */
+function startServer() {
+  return new Promise((resolve, reject) => {
+    const isDev = process.env.NODE_ENV === 'development';
+    
+    if (isDev) {
+      // In development, assume server is already running
+      console.log('Development mode: Using existing server at localhost:3000');
+      resolve();
+      return;
+    }
+
+    // In production, start the bundled server
+    const serverPath = path.join(process.resourcesPath, 'app', 'dist', 'index.js');
+    
+    console.log('Starting server from:', serverPath);
+    
+    serverProcess = spawn('node', [serverPath], {
+      env: {
+        ...process.env,
+        NODE_ENV: 'production',
+        PORT: SERVER_PORT.toString()
+      },
+      stdio: 'pipe'
+    });
+
+    serverProcess.stdout.on('data', (data) => {
+      console.log(`Server: ${data}`);
+      if (data.toString().includes('running on')) {
+        resolve();
+      }
+    });
+
+    serverProcess.stderr.on('data', (data) => {
+      console.error(`Server Error: ${data}`);
+    });
+
+    serverProcess.on('error', (error) => {
+      console.error('Failed to start server:', error);
+      reject(error);
+    });
+
+    serverProcess.on('close', (code) => {
+      console.log(`Server process exited with code ${code}`);
+      serverProcess = null;
+    });
+
+    // Timeout if server doesn't start in 10 seconds
+    setTimeout(() => {
+      if (serverProcess) {
+        resolve(); // Proceed anyway
+      }
+    }, 10000);
+  });
+}
+
+/**
+ * Stop the Express server
+ */
+function stopServer() {
+  if (serverProcess) {
+    console.log('Stopping server...');
+    serverProcess.kill();
+    serverProcess = null;
+  }
+}
 
 // IPC Handlers
 
