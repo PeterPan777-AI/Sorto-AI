@@ -9,7 +9,7 @@ if (!connectionString) {
 const isSQLite = connectionString.startsWith('file:') || connectionString.endsWith('.db');
 
 export default defineConfig({
-  schema: "./drizzle/schema.ts",
+  schema: "./drizzle/schema.sqlite.ts",
   out: "./drizzle",
   dialect: isSQLite ? "sqlite" : "mysql",
   dbCredentials: isSQLite 

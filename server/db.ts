@@ -1,5 +1,6 @@
 import { eq, and, desc, like, inArray, sql } from "drizzle-orm";
 import { getDb as getDbConnection } from "./db_connection";
+// Import from SQLite schema for desktop app
 import { 
   InsertUser, users, 
   documents, InsertDocument, Document,
@@ -7,7 +8,7 @@ import {
   documentTags, InsertDocumentTag,
   scanHistory, InsertScanHistory, ScanHistory,
   duplicateGroups, InsertDuplicateGroup, DuplicateGroup
-} from "../drizzle/schema";
+} from "../drizzle/schema.sqlite";
 import { ENV } from './_core/env';
 
 export async function getDb() {
@@ -197,7 +198,7 @@ export async function getDocumentStats(userId: number) {
   const byType: Record<string, number> = {};
   const byStatus: Record<string, number> = {};
 
-  allDocs.forEach(doc => {
+  allDocs.forEach((doc: Document) => {
     if (doc.documentType) {
       byType[doc.documentType] = (byType[doc.documentType] || 0) + 1;
     }
@@ -291,7 +292,7 @@ export async function getDuplicateGroupsByUserId(userId: number, includeResolved
 
   const conditions = includeResolved
     ? eq(duplicateGroups.userId, userId)
-    : and(eq(duplicateGroups.userId, userId), eq(duplicateGroups.resolved, false));
+    : and(eq(duplicateGroups.userId, userId), eq(duplicateGroups.isResolved, false));
 
   return await db
     .select()

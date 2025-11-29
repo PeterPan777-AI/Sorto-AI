@@ -20,7 +20,7 @@ export const duplicatesRouter = router({
       
       // Get documents for each group
       const groupsWithDocs = await Promise.all(
-        groups.map(async (group) => {
+        groups.map(async (group: any) => {
           const docs = await db.getDocumentsByDuplicateGroup(group.id);
           return {
             ...group,

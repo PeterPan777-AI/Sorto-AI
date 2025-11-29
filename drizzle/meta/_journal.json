@@ -1,19 +1,12 @@
 {
   "version": "7",
-  "dialect": "mysql",
+  "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
-      "version": "5",
-      "when": 1764380244309,
-      "tag": "0000_giant_ma_gnuci",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1764381162908,
-      "tag": "0001_fluffy_maverick",
+      "version": "6",
+      "when": 1764418681450,
+      "tag": "0000_spotty_bastion",
       "breakpoints": true
     }
   ]

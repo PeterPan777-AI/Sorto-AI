@@ -88,8 +88,7 @@ export default function Documents() {
     }
   };
 
-  const filteredDocuments = documents?.filter(doc =>
-    doc.fileName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  const filteredDocuments = documents?.filter((doc: any) => doc.fileName.toLowerCase().includes(searchQuery.toLowerCase()) ||
     doc.extractedText?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -179,7 +178,7 @@ export default function Documents() {
               </div>
             ) : filteredDocuments && filteredDocuments.length > 0 ? (
               <div className="space-y-3">
-                {filteredDocuments.map((doc) => (
+                {filteredDocuments.map((doc: any) => (
                   <div
                     key={doc.id}
                     className="flex items-start gap-3 p-3 border rounded-lg hover:bg-accent/50 transition-colors"

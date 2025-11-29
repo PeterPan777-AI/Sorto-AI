@@ -76,7 +76,7 @@ export default function Duplicates() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    {group.documents.map((doc) => (
+                    {group.documents.map((doc: any) => (
                       <div
                         key={doc.id}
                         className="flex items-start gap-3 p-3 border rounded-lg"

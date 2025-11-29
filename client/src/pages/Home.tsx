@@ -189,7 +189,7 @@ export default function Home() {
           <CardContent>
             {recentDocs && recentDocs.length > 0 ? (
               <div className="space-y-3">
-                {recentDocs.map((doc) => (
+                {recentDocs.map((doc: any) => (
                   <div key={doc.id} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50">
                     <FileText className="w-5 h-5 text-muted-foreground" />
                     <div className="flex-1 min-w-0">
