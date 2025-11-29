@@ -47,3 +47,8 @@
 - [x] Fix Home page UI
 - [x] Simple, clean interface working
 - [x] Build landing page
+
+## Landing Page Improvements
+- [x] Remove all "Ecconiq" references
+- [x] Add real app screenshots to landing page
+- [x] Expand FAQ section with more questions (now 15 FAQs total)

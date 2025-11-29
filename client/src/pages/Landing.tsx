@@ -104,27 +104,63 @@ export default function Landing() {
   const faqs = [
     {
       question: "Do my documents get uploaded to the cloud?",
-      answer: "No! Sorto runs entirely on your computer. Your documents never leave your machine. Only AI tagging requires a brief internet connection to analyze content."
+      answer: "No! Sorto runs entirely on your computer. Your documents never leave your machine. Only AI tagging requires a brief internet connection to analyze content. Your privacy is our priority."
     },
     {
       question: "What file types are supported?",
-      answer: "Sorto supports Word documents (.docx, .doc), PowerPoint presentations (.pptx, .ppt), Excel spreadsheets (.xlsx, .xls), PDFs, and text files."
+      answer: "Sorto supports Word documents (.docx, .doc), PowerPoint presentations (.pptx, .ppt), Excel spreadsheets (.xlsx, .xls), PDFs, and text files. More formats coming soon!"
     },
     {
       question: "How many documents can I organize?",
-      answer: "Unlimited! Sorto can handle thousands of documents. The only limit is your computer's storage space."
+      answer: "Unlimited! Sorto can handle thousands of documents. The only limit is your computer's storage space. We've tested it with libraries of over 10,000 files."
     },
     {
       question: "Can I use it on multiple computers?",
-      answer: "Yes! Each license allows installation on up to 2 computers."
+      answer: "Yes! Each license allows installation on up to 2 computers. Perfect for using Sorto on both your work and home computer."
     },
     {
       question: "What happens after the free trial?",
-      answer: "After 7 days, you'll need to subscribe to continue using Sorto. You can export all your data before the trial ends."
+      answer: "After 7 days, you'll need to subscribe to continue using Sorto. You can export all your data before the trial ends. No credit card required to start the trial."
     },
     {
       question: "Is there a refund policy?",
       answer: "Yes! We offer a 30-day money-back guarantee. If you're not satisfied, we'll refund your purchase, no questions asked."
+    },
+    {
+      question: "How does the AI tagging work?",
+      answer: "Sorto reads the content of your documents and automatically assigns relevant tags based on topics, keywords, and context. The more you use it, the smarter it gets at understanding your document library."
+    },
+    {
+      question: "Will Sorto slow down my computer?",
+      answer: "No! Sorto is designed to be lightweight and efficient. It runs quietly in the background and only uses resources when actively scanning or searching documents."
+    },
+    {
+      question: "Can I customize the tags?",
+      answer: "Absolutely! While Sorto automatically generates tags, you can always add, edit, or remove tags manually. You're in full control of how your documents are organized."
+    },
+    {
+      question: "What about duplicate files with different names?",
+      answer: "Sorto's smart duplicate detection goes beyond file names. It analyzes content to find similar documents, even if they have different names or are in different formats (like a Word doc and its PDF export)."
+    },
+    {
+      question: "Do I need an internet connection?",
+      answer: "You need internet only for initial setup, AI tagging, and license validation. Once documents are tagged, you can search and organize them completely offline."
+    },
+    {
+      question: "What operating systems are supported?",
+      answer: "Currently, Sorto is available for Windows 10 and 11. Mac and Linux versions are in development and coming soon!"
+    },
+    {
+      question: "Can I export my organized documents?",
+      answer: "Yes! You can export your document list with all tags and metadata to CSV or Excel format. You can also use Sorto's reorganization feature to physically move files into a new folder structure."
+    },
+    {
+      question: "Is my data backed up?",
+      answer: "Your documents and Sorto's database stay on your computer. We recommend using your regular backup solution (like Windows Backup or cloud storage) to protect your files. Sorto doesn't modify your original documents."
+    },
+    {
+      question: "Can teams use Sorto?",
+      answer: "Currently, Sorto is designed for individual use. Team and enterprise features are planned for future releases. Contact us if you're interested in team licensing."
     }
   ];
 
@@ -195,15 +231,14 @@ export default function Landing() {
             </p>
           </div>
           
-          {/* Hero Image/Screenshot Placeholder */}
+          {/* Hero Image/Screenshot */}
           <div className="mt-16 max-w-5xl mx-auto">
             <div className="rounded-lg border-8 border-gray-200 shadow-2xl overflow-hidden bg-white">
-              <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                <div className="text-center text-gray-400">
-                  <FileText className="w-24 h-24 mx-auto mb-4 opacity-50" />
-                  <p className="text-lg">App Screenshot Here</p>
-                </div>
-              </div>
+              <img 
+                src="/dashboard-screenshot.webp" 
+                alt="Sorto Dashboard - Clean interface showing document statistics, search, and quick actions"
+                className="w-full h-auto"
+              />
             </div>
           </div>
         </div>
