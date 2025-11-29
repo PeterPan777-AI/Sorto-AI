@@ -1,6 +1,7 @@
 {
-  "name": "doc_organizer",
+  "name": "sorto",
   "version": "1.0.0",
+  "description": "AI-powered document organization - Your Documents, Sorted",
   "type": "module",
   "license": "MIT",
   "scripts": {

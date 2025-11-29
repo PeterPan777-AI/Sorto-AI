@@ -1,24 +1,25 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Input } from "@/components/ui/input";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
-import { FileText, FolderSearch, Copy, Settings, AlertCircle, CheckCircle } from "lucide-react";
+import { FileText, FolderSearch, Search, Sparkles, Tags } from "lucide-react";
+import { useState } from "react";
 import { Link } from "wouter";
-import DashboardLayout from "@/components/DashboardLayout";
 
 export default function Home() {
   const { user, loading, isAuthenticated } = useAuth();
-  const { data: licenseStatus } = trpc.license.status.useQuery(undefined, {
-    enabled: isAuthenticated
-  });
+  const [searchQuery, setSearchQuery] = useState("");
+  
   const { data: stats } = trpc.documents.stats.useQuery(undefined, {
-    enabled: isAuthenticated
+    enabled: isAuthenticated,
   });
-  const { data: scanHistory } = trpc.scanHistory.list.useQuery({ limit: 5 }, {
-    enabled: isAuthenticated
-  });
+
+  const { data: recentDocs } = trpc.documents.list.useQuery(
+    { limit: 5 },
+    { enabled: isAuthenticated }
+  );
 
   if (loading) {
     return (
@@ -33,172 +34,221 @@ export default function Home() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-        <Card className="w-full max-w-md mx-4">
-          <CardHeader className="text-center">
-            <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center">
-              <FolderSearch className="h-8 w-8 text-primary" />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+        <div className="max-w-md w-full mx-4">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-indigo-600 text-white text-4xl font-bold mb-4">
+              S
             </div>
-            <CardTitle className="text-2xl">{APP_TITLE}</CardTitle>
-            <CardDescription className="text-base">
-              Intelligent document organization powered by AI
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2 text-sm text-muted-foreground">
-              <p className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                Automatically scan and tag documents
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">{APP_TITLE}</h1>
+            <p className="text-xl text-gray-600">Your Documents, Sorted.</p>
+          </div>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle>Welcome to {APP_TITLE}</CardTitle>
+              <CardDescription>
+                AI-powered document organization that actually works
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <Sparkles className="w-5 h-5 text-indigo-600 mt-0.5" />
+                  <div>
+                    <p className="font-medium">Automatic AI Tagging</p>
+                    <p className="text-sm text-muted-foreground">
+                      Let AI understand and categorize your documents
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <FolderSearch className="w-5 h-5 text-indigo-600 mt-0.5" />
+                  <div>
+                    <p className="font-medium">Smart Organization</p>
+                    <p className="text-sm text-muted-foreground">
+                      Find any file in seconds with powerful search
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <FileText className="w-5 h-5 text-indigo-600 mt-0.5" />
+                  <div>
+                    <p className="font-medium">Duplicate Detection</p>
+                    <p className="text-sm text-muted-foreground">
+                      Automatically find and manage duplicate files
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <Button 
+                className="w-full mt-6" 
+                size="lg"
+                onClick={() => window.location.href = getLoginUrl()}
+              >
+                Start Free Trial (7 Days)
+              </Button>
+              
+              <p className="text-xs text-center text-muted-foreground mt-4">
+                No credit card required • Full features • Cancel anytime
               </p>
-              <p className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                Detect duplicates and versions
-              </p>
-              <p className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                Smart search and filtering
-              </p>
-              <p className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                7-day free trial included
-              </p>
-            </div>
-            <Button className="w-full" size="lg" asChild>
-              <a href={getLoginUrl()}>Get Started</a>
-            </Button>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     );
   }
 
+  // Authenticated user view
   return (
-    <DashboardLayout>
-      <div className="space-y-6">
-        {/* License Status Alert */}
-        {licenseStatus && (licenseStatus.status === 'trial' || licenseStatus.status === 'expired') && (
-          <Alert variant={licenseStatus.status === 'expired' ? 'destructive' : 'default'}>
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>
-              {licenseStatus.message}
-              {licenseStatus.status === 'expired' && (
-                <Button variant="link" className="ml-2 h-auto p-0" asChild>
-                  <Link href="/settings">Upgrade Now</Link>
-                </Button>
-              )}
-            </AlertDescription>
-          </Alert>
-        )}
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white border-b">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xl">
+              S
+            </div>
+            <div>
+              <h1 className="text-xl font-bold">{APP_TITLE}</h1>
+              <p className="text-xs text-muted-foreground">Your Documents, Sorted</p>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <p className="text-sm font-medium">{user?.name}</p>
+              <p className="text-xs text-muted-foreground">
+                {user?.licenseStatus === "trial" && `${user?.daysRemaining} days left in trial`}
+                {user?.licenseStatus === "active" && "Active subscription"}
+              </p>
+            </div>
+          </div>
+        </div>
+      </header>
 
-        {/* Welcome Section */}
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Welcome back, {user?.name || 'User'}!</h1>
-          <p className="text-muted-foreground mt-2">
-            Manage and organize your documents with AI-powered intelligence.
-          </p>
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-8">
+        {/* Search Bar */}
+        <div className="max-w-2xl mx-auto mb-8">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+            <Input
+              type="search"
+              placeholder="Search your documents..."
+              className="pl-10 h-12 text-lg"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Documents</CardTitle>
-              <FileText className="h-4 w-4 text-muted-foreground" />
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                Total Documents
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats?.total || 0}</div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Across all folders
-              </p>
+              <div className="text-3xl font-bold">{stats?.total || 0}</div>
             </CardContent>
           </Card>
-
+          
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Document Types</CardTitle>
-              <FolderSearch className="h-4 w-4 text-muted-foreground" />
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                Document Types
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                {stats?.byType ? Object.keys(stats.byType).length : 0}
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Different categories
-              </p>
+              <div className="text-3xl font-bold">{Object.keys(stats?.byType || {}).length}</div>
             </CardContent>
           </Card>
-
+          
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Duplicates Found</CardTitle>
-              <Copy className="h-4 w-4 text-muted-foreground" />
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                Duplicates Found
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">0</div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Needs review
-              </p>
+              <div className="text-3xl font-bold">0</div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Quick Actions */}
-        <Card>
+        {/* Recent Documents */}
+        <Card className="mb-8">
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>Get started with common tasks</CardDescription>
+            <CardTitle>Recent Documents</CardTitle>
+            <CardDescription>Your recently scanned files</CardDescription>
           </CardHeader>
-          <CardContent className="grid gap-4 md:grid-cols-2">
-            <Button variant="outline" className="h-auto py-4 justify-start" asChild>
-              <Link href="/documents">
-                <FileText className="mr-2 h-5 w-5" />
-                <div className="text-left">
-                  <div className="font-semibold">Browse Documents</div>
-                  <div className="text-xs text-muted-foreground">View and search all documents</div>
-                </div>
-              </Link>
-            </Button>
-
-            <Button variant="outline" className="h-auto py-4 justify-start" asChild>
-              <Link href="/duplicates">
-                <Copy className="mr-2 h-5 w-5" />
-                <div className="text-left">
-                  <div className="font-semibold">Review Duplicates</div>
-                  <div className="text-xs text-muted-foreground">Find and manage duplicate files</div>
-                </div>
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Recent Scans */}
-        {scanHistory && scanHistory.length > 0 && (
-          <Card>
-            <CardHeader>
-              <CardTitle>Recent Scans</CardTitle>
-              <CardDescription>Your latest folder scans</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {scanHistory.map((scan) => (
-                  <div key={scan.id} className="flex items-center justify-between border-b pb-3 last:border-0 last:pb-0">
-                    <div className="flex-1">
-                      <p className="font-medium text-sm truncate">{scan.folderPath}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {new Date(scan.startedAt).toLocaleString()}
-                      </p>
+          <CardContent>
+            {recentDocs && recentDocs.length > 0 ? (
+              <div className="space-y-3">
+                {recentDocs.map((doc) => (
+                  <div key={doc.id} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50">
+                    <FileText className="w-5 h-5 text-muted-foreground" />
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium truncate">{doc.fileName}</p>
+                      <p className="text-sm text-muted-foreground truncate">{doc.filePath}</p>
                     </div>
-                    <div className="text-right">
-                      <p className="text-sm font-medium">{scan.filesProcessed} files</p>
-                      <p className="text-xs text-muted-foreground capitalize">{scan.status}</p>
-                    </div>
+                    {doc.documentType && (
+                      <span className="px-2 py-1 text-xs rounded-full bg-indigo-100 text-indigo-700">
+                        {doc.documentType}
+                      </span>
+                    )}
                   </div>
                 ))}
               </div>
-            </CardContent>
+            ) : (
+              <div className="text-center py-8 text-muted-foreground">
+                <FileText className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                <p>No documents yet</p>
+                <p className="text-sm">Scan a folder to get started</p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Quick Actions */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+            <Link href="/documents">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-lg bg-indigo-100 flex items-center justify-center">
+                    <FolderSearch className="w-6 h-6 text-indigo-600" />
+                  </div>
+                  <div>
+                    <CardTitle>Scan Folder</CardTitle>
+                    <CardDescription>Add documents to organize</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+            </Link>
           </Card>
-        )}
-      </div>
-    </DashboardLayout>
+
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+            <Link href="/duplicates">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center">
+                    <Tags className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <CardTitle>Review Duplicates</CardTitle>
+                    <CardDescription>Clean up duplicate files</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+            </Link>
+          </Card>
+        </div>
+      </main>
+    </div>
   );
 }

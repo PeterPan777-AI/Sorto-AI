@@ -7,15 +7,15 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Documents from "./pages/Documents";
 import Duplicates from "./pages/Duplicates";
-import Settings from "./pages/Settings";
+import Landing from "./pages/Landing";
 
 function Router() {
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
+      <Route path={"/"} component={Landing} />
+      <Route path={"/dashboard"} component={Home} />
       <Route path={"/documents"} component={Documents} />
       <Route path={"/duplicates"} component={Duplicates} />
-      <Route path={"/settings"} component={Settings} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>
