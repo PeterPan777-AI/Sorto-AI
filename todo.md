@@ -133,3 +133,26 @@
 - [ ] Cross-platform testing (Windows versions)
 - [ ] License validation testing
 - [ ] Update mechanism testing
+
+
+## Desktop Application Packaging
+
+### Windows Desktop App
+- [ ] Create Python standalone executable with PyInstaller
+- [ ] Bundle Node.js runtime for web server
+- [x] Create local database setup script
+- [x] Create desktop launcher application
+- [ ] Add system tray icon
+- [ ] Create Windows installer with NSIS or Inno Setup
+- [ ] Add auto-start on Windows boot option
+- [ ] Create uninstaller
+
+### Distribution
+- [x] Create installation guide
+- [x] Create user manual
+- [ ] Add desktop shortcuts
+- [ ] Add Start menu entries
+- [ ] Create branded installer with logo
+- [ ] Add EULA/license agreement
+- [x] Version numbering system
+- [x] Update mechanism documentation
