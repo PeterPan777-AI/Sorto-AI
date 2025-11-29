@@ -78,3 +78,16 @@
 - [x] Add server startup/shutdown in Electron main process
 - [x] Configure port management and error handling
 - [ ] Test embedded server in desktop app
+
+## SQLite Migration
+- [ ] Install better-sqlite3 package
+- [ ] Update Drizzle config for SQLite
+- [ ] Update database connection in db.ts
+- [ ] Test database operations with SQLite
+- [ ] Update environment configuration for local DB
+
+## Windows Installer Build
+- [ ] Create app icons (icon.ico, icon.png)
+- [ ] Run production build
+- [ ] Generate Windows installer
+- [ ] Test installer on Windows
