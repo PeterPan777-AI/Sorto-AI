@@ -59,6 +59,6 @@
 - [x] File processing - extract text from Word/Excel/PowerPoint/PDF
 - [x] AI tagging service - analyze content and auto-tag documents
 - [x] Duplicate detection - find exact and similar files
-- [ ] Search functionality - full-text search across documents
-- [ ] Wire up UI to backend services
+- [x] Search functionality - full-text search across documents
+- [x] Wire up UI to backend services
 - [ ] Test with real Turtle House documents

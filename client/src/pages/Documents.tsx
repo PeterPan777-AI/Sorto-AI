@@ -30,14 +30,14 @@ export default function Documents() {
     { enabled: isAuthenticated }
   );
 
-  const scanMutation = trpc.documents.scan.useMutation({
+  const scanMutation = trpc.scan.startScan.useMutation({
     onSuccess: (data) => {
-      toast.success(`Scan completed! Processed ${data.filesProcessed} files.`);
+      toast.success(`Scan started! Scan ID: ${data.scanId}`);
       setIsScanning(false);
       setFolderPath("");
       refetch();
     },
-    onError: (error) => {
+    onError: (error: any) => {
       toast.error(`Scan failed: ${error.message}`);
       setIsScanning(false);
     }
@@ -51,8 +51,7 @@ export default function Documents() {
 
     setIsScanning(true);
     scanMutation.mutate({
-      folderPath: folderPath.trim(),
-      recursive: true
+      folderPath: folderPath.trim()
     });
   };
 
@@ -171,7 +170,7 @@ export default function Documents() {
                             {doc.documentType.replace(/_/g, ' ')}
                           </Badge>
                         )}
-                        {doc.categories && doc.categories.slice(0, 3).map((cat: string, idx: number) => (
+                        {doc.categories && Array.isArray(doc.categories) && (doc.categories as any[]).slice(0, 3).map((cat: string, idx: number) => (
                           <Badge key={idx} variant="outline" className="text-xs">
                             {cat}
                           </Badge>
