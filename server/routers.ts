@@ -8,6 +8,11 @@ import { promisify } from "util";
 import * as db from "./db";
 import { analyzeDocument, calculateSimilarity, detectVersionPattern } from "./ai_tagger";
 import { licenseRouter } from "./license";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const execAsync = promisify(exec);
 
@@ -80,8 +85,9 @@ export const appRouter = router({
         try {
           // Run Python document processor
           const recursiveFlag = input.recursive ? '' : '--no-recursive';
+          const scriptPath = join(__dirname, 'document_processor.py');
           const { stdout } = await execAsync(
-            `python3.11 ${__dirname}/document_processor.py "${input.folderPath}" ${recursiveFlag}`
+            `python3.11 "${scriptPath}" "${input.folderPath}" ${recursiveFlag}`
           );
           
           const result = JSON.parse(stdout);

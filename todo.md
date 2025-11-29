@@ -156,3 +156,7 @@
 - [ ] Add EULA/license agreement
 - [x] Version numbering system
 - [x] Update mechanism documentation
+
+
+## Bug Fixes
+- [x] Fix __dirname error in document scanning (ES module compatibility)
