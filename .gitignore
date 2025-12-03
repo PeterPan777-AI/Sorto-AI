@@ -105,3 +105,21 @@ temp/
 *.db
 *.sqlite
 *.sqlite3
+
+# Electron
+release/
+out/
+app/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+
+# Sorto specific
+data/
+screenshots/

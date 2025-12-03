@@ -91,3 +91,42 @@
 - [ ] Run production build
 - [ ] Generate Windows installer
 - [ ] Test installer on Windows
+
+## Testing & Validation
+- [x] Write vitest tests for SQLite database operations
+- [ ] Fix remaining SQLite compatibility issues (some functions need adjustment)
+- [ ] Run all tests and verify they pass
+
+## Final Build
+- [x] Build frontend production bundle
+- [x] Build backend for Electron
+- [x] Attempt electron-builder packaging (failed - needs Windows/Wine)
+- [ ] Build Windows installer on Windows machine or CI/CD
+
+
+## GitHub Actions Setup
+- [x] Create GitHub Actions workflow file
+- [x] Add Sorto logo to build directory
+- [x] Create README.md for repository
+- [x] Update .gitignore for Electron/Python
+- [x] Create GITHUB_SETUP.md instructions
+- [ ] Push code to GitHub repository
+- [ ] Verify GitHub Actions builds successfully
+
+
+## Gumroad License System
+- [x] Create license management backend with Gumroad API
+- [x] Add license validation tRPC procedures
+- [x] Build trial tracking system (7 days from first launch)
+- [x] Create license activation dialog UI
+- [x] Add license status display in settings
+- [x] Implement feature gating (disable after trial)
+- [x] Create LicenseGuard component for protected features
+- [x] Create Gumroad setup documentation
+- [ ] Test license validation flow with real Gumroad key
+
+
+## Industry Solutions Section
+- [x] Design industry use cases relevant to Sorto (legal, real estate, consulting, etc.)
+- [x] Create industry solutions section for landing page
+- [x] Add industry-specific pain points and solutions

@@ -304,8 +304,96 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Industry Solutions */}
+      <section id="industry-solutions" className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Trusted by Professionals Across Industries
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Sorto adapts to your workflow, no matter your field
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            <Card className="border-2 hover:border-indigo-200 hover:shadow-lg transition-all">
+              <CardHeader>
+                <CardTitle className="text-lg">Legal Professionals</CardTitle>
+                <CardDescription className="text-sm">
+                  Organize case files, contracts, discovery documents, and client correspondence. AI tags by client, case type, and jurisdiction automatically.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            
+            <Card className="border-2 hover:border-indigo-200 hover:shadow-lg transition-all">
+              <CardHeader>
+                <CardTitle className="text-lg">Real Estate Agents</CardTitle>
+                <CardDescription className="text-sm">
+                  Manage property listings, contracts, inspection reports, and client documents. Find any property file in seconds.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            
+            <Card className="border-2 hover:border-indigo-200 hover:shadow-lg transition-all">
+              <CardHeader>
+                <CardTitle className="text-lg">Consultants</CardTitle>
+                <CardDescription className="text-sm">
+                  Track project proposals, client deliverables, research reports, and presentations. Organize by client and project phase.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            
+            <Card className="border-2 hover:border-indigo-200 hover:shadow-lg transition-all">
+              <CardHeader>
+                <CardTitle className="text-lg">Accountants</CardTitle>
+                <CardDescription className="text-sm">
+                  Manage tax documents, financial statements, client records, and audit files. Auto-tag by client, tax year, and document type.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            
+            <Card className="border-2 hover:border-indigo-200 hover:shadow-lg transition-all">
+              <CardHeader>
+                <CardTitle className="text-lg">Small Business Owners</CardTitle>
+                <CardDescription className="text-sm">
+                  Organize invoices, receipts, contracts, employee documents, and vendor files. Stop wasting time searching for paperwork.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            
+            <Card className="border-2 hover:border-indigo-200 hover:shadow-lg transition-all">
+              <CardHeader>
+                <CardTitle className="text-lg">Researchers & Academics</CardTitle>
+                <CardDescription className="text-sm">
+                  Manage research papers, citations, grant applications, and study data. AI identifies topics and themes automatically.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            
+            <Card className="border-2 hover:border-indigo-200 hover:shadow-lg transition-all">
+              <CardHeader>
+                <CardTitle className="text-lg">Creative Agencies</CardTitle>
+                <CardDescription className="text-sm">
+                  Track client briefs, project documentation, contracts, and asset metadata. Keep creative projects organized and accessible.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            
+            <Card className="border-2 hover:border-indigo-200 hover:shadow-lg transition-all">
+              <CardHeader>
+                <CardTitle className="text-lg">Healthcare Administration</CardTitle>
+                <CardDescription className="text-sm">
+                  Organize policies, procedures, compliance documents, and administrative records. Maintain document control effortlessly.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing */}
-      <section id="pricing" className="py-20">
+      <section id="pricing" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">

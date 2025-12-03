@@ -7,10 +7,10 @@ import { exec } from "child_process";
 import { promisify } from "util";
 import * as db from "./db";
 import { analyzeDocument, calculateSimilarity, detectVersionPattern } from "./ai_tagger";
-import { licenseRouter } from "./license";
 import { scanRouter } from "./routers/scan";
 import { documentsRouter } from "./routers/documents";
-import { duplicatesRouter } from "./routers/duplicates";
+import { duplicatesRouter } from './routers/duplicates';
+import { licenseRouter } from './routers/license';
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
@@ -24,7 +24,7 @@ export const appRouter = router({
   scan: scanRouter,
   documents: documentsRouter,
   duplicates: duplicatesRouter,
-  
+  license: licenseRouter,
   auth: router({
     me: publicProcedure.query(opts => {
       const user = opts.ctx.user;
@@ -78,9 +78,7 @@ export const appRouter = router({
       .query(async ({ ctx, input }) => {
         return await db.getScanHistoryByUserId(ctx.user.id, input.limit);
       })
-  }),
-  
-  license: licenseRouter
+  })
 });
 
 export type AppRouter = typeof appRouter;

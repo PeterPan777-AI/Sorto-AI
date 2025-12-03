@@ -13,15 +13,15 @@ export default function Settings() {
   const { user } = useAuth();
   const [licenseKey, setLicenseKey] = useState("");
 
-  const { data: licenseStatus, refetch } = trpc.license.status.useQuery();
+  const { data: licenseStatus, refetch } = trpc.license.getStatus.useQuery();
 
-  const activateMutation = trpc.license.activate.useMutation({
-    onSuccess: (data) => {
+  const activateMutation = trpc.license.activateLicense.useMutation({
+    onSuccess: (data: { success: boolean; message: string; email?: string }) => {
       toast.success(data.message);
       setLicenseKey("");
       refetch();
     },
-    onError: (error) => {
+    onError: (error: { message: string }) => {
       toast.error(error.message);
     }
   });
@@ -53,7 +53,7 @@ export default function Settings() {
           <Alert className="border-green-500 bg-green-50">
             <CheckCircle className="h-4 w-4 text-green-600" />
             <AlertDescription className="text-green-900">
-              Active Subscription - {licenseStatus.message}
+              License Active - Full access to all features
             </AlertDescription>
           </Alert>
         );
@@ -62,7 +62,7 @@ export default function Settings() {
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>
-              {licenseStatus.message}
+              Trial Expired - Please activate a license to continue
             </AlertDescription>
           </Alert>
         );
