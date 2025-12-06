@@ -52,7 +52,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build application
+      - name: Build frontend
+        run: pnpm build
+
+      - name: Build Electron app
         run: pnpm electron:build:win
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -61,7 +64,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sorto-windows-installer
-          path: release/Sorto Setup *.exe
+          path: dist/*.exe
+          if-no-files-found: error
           retention-days: 30
 
       - name: Create Release (on tag push)
